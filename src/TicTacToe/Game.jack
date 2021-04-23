@@ -1,0 +1,311 @@
+/** Game class that defines the board and marks that are on it, including game behaviors such as checking win conditions */
+class Game {
+	field String row1;
+	field String dash;
+	field String row2;
+	field String row3;
+	field int turncount;
+	field int turn;
+
+	// X = 88, O = 79
+	constructor Game new() {
+		let row1 = String.new(16);
+		let row1 = " | | ";
+		let row2 = String.new(16);
+		let row2 = " | | ";	
+		let row3 = String.new(16);
+		let row3 = " | | ";
+		let dash = "-----";
+		let turncount = 0;
+		let turn = 0;
+		return this;
+	}
+	
+	method void dispose() {
+		do row1.dispose();
+		do row2.dispose();
+		do row3.dispose();
+		do dash.dispose();
+		return;
+	}
+	method int isTaken(int a, int b) {
+		if (a = 1) {
+			if (b = 1) {
+				if((row1.charAt(0) = 88) | (row1.charAt(0) = 79)) {
+					return 1;
+				}
+				else {  return 0; }
+			}
+			if (b = 2) {
+				if((row1.charAt(2) = 88) | (row1.charAt(2) = 79)) {
+					return 1;
+				}
+				else {  return 0; }
+			}
+			if (b = 3) {
+				if((row1.charAt(4) = 88) | (row1.charAt(4) = 79)) {
+					return 1;
+				}
+				else {  return 0; }
+			}
+		}	
+		if (a = 2) {
+			if (b = 1) {
+				if((row2.charAt(0) = 88) | (row2.charAt(0) = 79)) {
+					return 1;
+				}
+				else {  return 0; }
+			}
+			if (b = 2) {
+				if((row2.charAt(2) = 88) | (row2.charAt(2) = 79)) {
+					return 1;
+				}
+				else {  return 0; }
+			}
+			if (b = 3) {
+				if((row2.charAt(4) = 88) | (row2.charAt(4) = 79)) {
+					return 1;
+				}
+				else {  return 0; }
+			}
+		}	
+		if (a = 3) {
+			if (b = 1) {
+				if((row3.charAt(0) = 88) | (row3.charAt(0) = 79)) {
+					return 1;
+				}
+				else {  return 0; }
+			}
+			if (b = 2) {
+				if((row3.charAt(2) = 88) | (row3.charAt(2) = 79)) {
+					return 1;
+				}
+				else {  return 0; }
+			}
+			if (b = 3) {
+			 	if((row3.charAt(4) = 88) | (row3.charAt(4) = 79)) {
+					return 1;
+				}
+				else {  return 0;}
+			}
+		}
+		return 2;
+	}
+	
+	method int getTurn() {
+		return turn;
+	}
+	
+	method void printBoard() {
+		do Output.printString(row1);
+		do Output.println();
+		do Output.printString(dash);
+		do Output.println();
+		do Output.printString(row2);
+		do Output.println();
+		do Output.printString(dash);
+		do Output.println();
+		do Output.printString(row3);
+		do Output.println();
+		return;
+
+	}
+
+	method void set(int a, int b, char m) {
+		if (a = 1) {
+			if (b = 1) {
+				do row1.setCharAt(0, m);
+			}
+			if (b = 2) {
+				do row1.setCharAt(2, m);
+			}
+			if (b = 3) {
+				do row1.setCharAt(4, m);
+			}
+		}	
+		if (a = 2) {
+			if (b = 1) {
+				do row2.setCharAt(0, m);
+			}
+			if (b = 2) {
+				do row2.setCharAt(2, m);
+			}
+			if (b = 3) {
+				do row2.setCharAt(4, m);
+			}
+		}	
+		if (a = 3) {
+			if (b = 1) {
+				do row3.setCharAt(0, m);
+			}
+			if (b = 2) {
+				do row3.setCharAt(2, m);
+			}
+			if (b = 3) {
+			 	do row3.setCharAt(4, m);
+			}
+		}	
+		if(turn = 0) {
+			let turn = 1;
+		}
+		else {
+			let turn = 0;
+		}
+		let turncount = turncount + 1;
+		return;
+	}
+	
+	method int checkWin() {
+		if (turncount = 9) {
+			do Output.printString("Tie Game!");
+			return 4;
+		}
+		if((row1.charAt(0) = 88) & (row1.charAt(2) = 88) & (row1.charAt(4) = 88)) {
+			do Output.printString("Player 1 wins!");
+			do Output.println();
+			do Output.printString("Turncount: ");
+			do Output.printInt(turncount);
+			do Output.println();
+			return 1;
+		}
+		if((row1.charAt(0) = 88) & (row2.charAt(2) = 88) & (row3.charAt(4) = 88)) {
+			do Output.printString("Player 1 wins!");
+			do Output.println();
+			do Output.printString("Turncount: ");
+			do Output.printInt(turncount);
+			do Output.println();
+			return 1;
+		}
+		if((row1.charAt(0) = 88) & (row2.charAt(0) = 88) & (row3.charAt(0) = 88)) {
+			do Output.printString("Player 1 wins!");
+			do Output.println();
+			do Output.printString("Turncount: ");
+			do Output.printInt(turncount);
+			do Output.println();
+			return 1;
+		}
+		if((row2.charAt(0) = 88) & (row2.charAt(2) = 88) & (row2.charAt(4) = 88)) {
+			do Output.printString("Player 1 wins!");
+			do Output.println();
+			do Output.printString("Turncount: ");
+			do Output.printInt(turncount);
+			do Output.println();
+			return 1;
+		}
+		if((row1.charAt(4) = 88) & (row2.charAt(4) = 88) & (row3.charAt(4) = 88)) {
+			do Output.printString("Player 1 wins!");
+			do Output.println();
+			do Output.printString("Turncount: ");
+			do Output.printInt(turncount);
+			do Output.println();
+			return 1;
+		}
+		if((row1.charAt(2) = 88) & (row2.charAt(2) = 88) & (row3.charAt(2) = 88)) {
+			do Output.printString("Player 1 wins!");
+			do Output.println();
+			do Output.printString("Turncount: ");
+			do Output.printInt(turncount);
+			do Output.println();
+			return 1;
+		}
+		if((row3.charAt(0) = 88) & (row3.charAt(2) = 88) & (row3.charAt(4) = 88)) {
+			do Output.printString("Player 1 wins!");
+			do Output.println();
+			do Output.printString("Turncount: ");
+			do Output.printInt(turncount);
+			do Output.println();
+			return 1;
+		}
+		if((row3.charAt(0) = 88) & (row2.charAt(2) = 88) & (row1.charAt(4) = 88)) {
+			do Output.printString("Player 1 wins!");
+			do Output.println();
+			do Output.printString("Turncount: ");
+			do Output.printInt(turncount);
+			do Output.println();
+			return 1;
+		}
+		if((row1.charAt(0) = 88) & (row2.charAt(2) = 88) & (row3.charAt(4) = 88)) {
+			do Output.printString("Player 1 wins!");
+			do Output.println();
+			do Output.printString("Turncount: ");
+			do Output.printInt(turncount);
+			do Output.println();
+			return 1;
+		}
+		
+		if((row1.charAt(0) = 79) & (row1.charAt(2) = 79) & (row1.charAt(4) = 79)) {
+			do Output.printString("Player 2 wins!");
+			do Output.println();
+			do Output.printString("Turncount: ");
+			do Output.printInt(turncount);
+			do Output.println();
+			return 1;
+		}
+		if((row1.charAt(0) = 79) & (row2.charAt(2) = 79) & (row3.charAt(4) = 79)) {
+			do Output.printString("Player 2 wins!");
+			do Output.println();
+			do Output.printString("Turncount: ");
+			do Output.printInt(turncount);
+			do Output.println();
+			return 1;
+		}
+		if((row1.charAt(0) = 79) & (row2.charAt(0) = 79) & (row3.charAt(0) = 79)) {
+			do Output.printString("Player 2 wins!");
+			do Output.println();
+			do Output.printString("Turncount: ");
+			do Output.printInt(turncount);
+			do Output.println();
+			return 1;
+		}
+		if((row2.charAt(0) = 79) & (row2.charAt(2) = 79) & (row2.charAt(4) = 79)) {
+			do Output.printString("Player 2 wins!");
+			do Output.println();
+			do Output.printString("Turncount: ");
+			do Output.printInt(turncount);
+			do Output.println();
+			return 1;
+		}
+		if((row1.charAt(4) = 79) & (row2.charAt(4) = 79) & (row3.charAt(4) = 79)) {
+			do Output.printString("Player 2 wins!");
+			do Output.println();
+			do Output.printString("Turncount: ");
+			do Output.printInt(turncount);
+			do Output.println();
+			return 1;
+		}
+		if((row1.charAt(2) = 79) & (row2.charAt(2) = 79) & (row3.charAt(2) = 79)) {
+			do Output.printString("Player 2 wins!");
+			do Output.println();
+			do Output.printString("Turncount: ");
+			do Output.printInt(turncount);
+			do Output.println();
+			return 1;
+		}
+		if((row3.charAt(0) = 79) & (row3.charAt(2) = 79) & (row3.charAt(4) = 79)) {
+			do Output.printString("Player 2 wins!");
+			do Output.println();
+			do Output.printString("Turncount: ");
+			do Output.printInt(turncount);
+			do Output.println();
+			return 1;
+		}
+		if((row3.charAt(0) = 79) & (row2.charAt(2) = 79) & (row1.charAt(4) = 79)) {
+			do Output.printString("Player 2 wins!");
+			do Output.println();
+			do Output.printString("Turncount: ");
+			do Output.printInt(turncount);
+			do Output.println();
+			return 1;
+		}
+		if((row1.charAt(0) = 79) & (row2.charAt(2) = 79) & (row3.charAt(4) = 79)) {
+			do Output.printString("Player 2 wins!");
+			do Output.println();
+			do Output.printString("Turncount: ");
+			do Output.printInt(turncount);
+			do Output.println();
+			return 1;
+		}
+		return 0;
+	}
+	
+}

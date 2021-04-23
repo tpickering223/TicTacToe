@@ -1,0 +1,77 @@
+class Main {
+	function void main() {
+		var Game tictactoe;
+		var boolean done, valid;
+		var int turn, check;
+		var int input1, input2;
+		var char p1, p2;
+		var int win;
+		var String player1;
+		var String player2;
+		let player1 = "X";
+		let player2 = "O";
+		let tictactoe = Game.new();
+		do Output.printString("Welcome to TicTacToe, enter a row number [1-3], then a column number[1-3].");
+		do Output.println();
+		let done = false;
+		let p1 = player1.charAt(0);
+		let p2 = player2.charAt(0);
+		do Output.println();
+		do Output.println();
+		do Output.println();
+		do tictactoe.printBoard();
+		let win = 0;
+		while(~(done)) {
+			let valid = false;
+			let turn = tictactoe.getTurn();
+			if(turn = 0) {
+		           while(~(valid)) {
+				do Output.println();
+				let input1 = Keyboard.readInt("Player 1's turn, enter row first (e.g. 1, 2, or 3): ");
+				do Output.println();
+				let input2 = Keyboard.readInt("Now enter the column number to place your mark: ");
+				let check = tictactoe.isTaken(input1, input2);
+				if(check = 0) {
+					let valid = true;
+				}
+				if(check = 1) {
+					do Output.printString("This spot is already taken! Try again with valid input.");
+				}
+				if(check = 2) {
+					do Output.printString("Input out of range, range is [1-3] for both rows and columns");
+				}
+			   }
+				do tictactoe.set(input1, input2, p1);
+			}
+			else {
+			    while(~(valid)) {	
+				do Output.println();
+				let input1 = Keyboard.readInt("Player 2's turn, enter row first (e.g. 1, 2, or 3): ");
+				do Output.println();
+				let input2 = Keyboard.readInt("Now enter the column number to place your mark: ");
+				let check = tictactoe.isTaken(input1, input2);
+				if(check = 0) {
+					let valid = true;
+				}
+				if(check = 1) {
+					do Output.printString("This spot is already taken! Try again with valid input.");
+				}
+				if(check = 2) {
+					do Output.printString("Input out of range, range is [1-3] for both rows and columns");
+				}
+			     }
+				do tictactoe.set(input1, input2, p2);
+				
+			}
+			
+			do Screen.clearScreen();
+			do tictactoe.printBoard();
+			let win = tictactoe.checkWin();
+			if (win = 1) {
+				let done = true;
+			}
+		}
+		return;
+	}
+
+}
